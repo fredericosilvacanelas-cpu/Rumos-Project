@@ -1,0 +1,33 @@
+<div class="container">
+  <p *ngIf="loading">Loading recipe details...</p>
+  <p *ngIf="error" class="error-message">{{ error }}</p>
+
+  <div *ngIf="recipe">
+    <h1>{{ recipe.name }}</h1>
+
+    <div class="attributes-bar">
+      <span>🕒 Prep Time: <strong>{{ recipe.prepTime }}</strong></span> |
+      <span>🔥 Difficulty: <strong>{{ recipe.difficulty }}</strong></span> |
+      <span>🏷️ Category: <strong>{{ recipe.category }}</strong></span>
+    </div>
+
+    <hr>
+
+    <section class="ingredients">
+      <h2>Ingredients</h2>
+      <ul>
+        <li *ngFor="let ingredient of recipe.ingredients">
+          <strong>{{ ingredient.quantity }}</strong> - {{ ingredient.name }}
+        </li>
+      </ul>
+      <p *ngIf="!recipe.ingredients || recipe.ingredients.length === 0">No ingredients listed.</p>
+    </section>
+
+    <section class="instructions">
+      <h2>Preparation Steps</h2>
+      <p>{{ recipe.instructions }}</p>
+    </section>
+
+    <a [routerLink]="['/admin/edit', recipe.id]" class="btn-edit">✏️ Edit Recipe (Admin)</a>
+  </div>
+</div>
